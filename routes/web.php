@@ -1,6 +1,7 @@
 <?php
 
 use App\Facades\HomeOwner;
+use App\Http\Controllers\HomeOwnerUploadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -20,36 +21,10 @@ use Inertia\Inertia;
 */
 
 
-Route::post('/', function (Request $request) {
-    $request->validate([
-        'csv' => ['required', 'file', 'mimes:csv']
-    ]);
-
-    $path = $request->file('csv')->store('uploads');
-
-    $stream = Storage::readStream($path);
-
-    $header = false;
-    $people = [];
-    while(($line = fgetcsv($stream)) !== false) {
-        if(!$header) {
-            $header = true;
-            continue;
-        }
-
-        $people[] = HomeOwner::toArray($line[0]);
-    }
-
-    return Inertia::render('Dashboard', [
-        'people' => $people,
-    ]);
-})->middleware(['auth', 'verified'])->name('upload');
-
-Route::get('/', function () {
-    return Inertia::render('Dashboard', ['people' => []]);
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
+    Route::get('/', [HomeOwnerUploadController::class, 'index'])->name('dashboard');
+    Route::post('/', [HomeOwnerUploadController::class, 'store'])->name('upload');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

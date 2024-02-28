@@ -1,3 +1,12 @@
+### Important Files
+- HomeOwnerUploadController
+    - Handles logic for upload and display of Home Owners
+- app/Facades/HomeOwner.php
+    - Helper functions for extracting information from a home owner string
+    - Logic for parsing a string into relevant arrays
+
+### Implementation and Further information
+
 The main driving force behind using a facade was that fact that seems like a fairly useful piece of logic that other teams within Street Group might want to use, so it has been made with no particular ties to any class. 
 However, utilising collection this would be fairly easy to map these people into models.
 
