@@ -87,6 +87,17 @@ class HomeOwner
     }
 
     /**
+     * @param  string  $homeOwner
+     * @return string
+     *
+     * @throws Throwable
+     */
+    public function getSurname(string $homeOwner): string
+    {
+        return '';
+    }
+
+    /**
      * @param  string  $owners
      * @return Collection
      */
