@@ -13,6 +13,8 @@ const upload = () => {
         }
     })
 }
+
+defineProps({ people: Array })
 </script>
 
 <template>
@@ -27,6 +29,28 @@ const upload = () => {
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
+                        <div v-if="!!people.length" class="mb-5">
+                            <h1 class="text-xl font-black">Home Owners uploaded</h1>
+                            <table class="min-w-full divide-y divide-gray-300">
+                                <thead>
+                                <tr>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Row</th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Person 1</th>
+                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Person 2</th>
+                                </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                <tr v-for="(persons, index) in people" :key="`${persons[0].title}-${persons[0].last_name}`">
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{{index + 1}}</td>
+                                    <td v-for="person in persons" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        {{ person.title }} {{ person.first_name }} {{ person.initial }} {{ person.last_name }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
                         <h1 class="text-xl font-black">Upload Home Owner CSV</h1>
 
                         <div class="rounded-md bg-red-50 p-4 mt-4 mb-4" v-if="form.errors.csv">

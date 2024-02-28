@@ -1,9 +1,11 @@
 <?php
 
+use App\Facades\HomeOwner;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 /*
@@ -31,10 +33,28 @@ Route::post('/upload', function (Request $request) {
         'csv' => ['required', 'file', 'mimes:csv']
     ]);
 
+    $path = $request->file('csv')->store('uploads');
+
+    $stream = Storage::readStream($path);
+
+    $header = false;
+    $people = [];
+    while(($line = fgetcsv($stream)) !== false) {
+        if(!$header) {
+            $header = true;
+            continue;
+        }
+
+        $people[] = HomeOwner::toArray($line[0]);
+    }
+
+    return Inertia::render('Dashboard', [
+        'people' => $people,
+    ]);
 })->middleware(['auth', 'verified'])->name('upload');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard', ['people' => []]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
