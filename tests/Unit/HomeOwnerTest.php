@@ -26,5 +26,9 @@ class HomeOwnerTest extends TestCase
 
         $homeOwner = "Mister Dave Johnson";
         $this->assertSame("Mr", HomeOwner::getInitial($homeOwner));
+
+        $homeOwner = "John Smith";
+        $this->expectException(\UnhandledMatchError::class);
+        $this->assertSame("Mr", HomeOwner::getInitial($homeOwner));
     }
 }
