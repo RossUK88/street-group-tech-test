@@ -3,6 +3,9 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Str;
+use InvalidArgumentException;
+use Throwable;
+use UnhandledMatchError;
 
 class HomeOwner
 {
@@ -10,7 +13,7 @@ class HomeOwner
      * @param  string  $homeOwner
      * @return string
      *
-     * @throws \UnhandledMatchError
+     * @throws UnhandledMatchError
      */
     public function getTitle(string $homeOwner): string
     {
@@ -27,10 +30,13 @@ class HomeOwner
     /**
      * @param  string  $homeOwner
      * @return string|null
+     *
+     * @throws Throwable
      */
     public function getFirstName(string $homeOwner): ?string
     {
         $homeOwnerParts = explode(" ", $homeOwner);
+        throw_if(count($homeOwnerParts) <= 1, InvalidArgumentException::class);
 
         // Home Owner has all parts of a name Title, First Name, Initial, Lastname
         if(count($homeOwnerParts) === 4) {
@@ -38,7 +44,6 @@ class HomeOwner
         }
 
         // Home Owners are required to have a Title and a Lastname therefore this means the Firstname and Initial are null
-        // TODO: Handle a Home owner only having 1 part to their name
         if(count($homeOwnerParts) <= 2) {
             return null;
         }
