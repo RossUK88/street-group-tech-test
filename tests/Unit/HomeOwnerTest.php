@@ -103,4 +103,72 @@ class HomeOwnerTest extends TestCase
         $owners = "Mr & Mrs Hughes";
         $this->assertCount(2, HomeOwner::peopleFromString($owners));
     }
+
+    public function test_it_can_output_an_array_of_people_with_data(): void
+    {
+        $owners = "Mr John Smith";
+        $this->assertSame([
+            [
+                'title' => 'Mr',
+                'first_name' => 'John',
+                'initial' => null,
+                'last_name' => 'Smith',
+            ]
+        ], HomeOwner::toArray($owners));
+
+        $owners = "Mrs Jane Doe";
+        $this->assertSame([
+            [
+                'title' => 'Mrs',
+                'first_name' => 'Jane',
+                'initial' => null,
+                'last_name' => 'Doe',
+            ]
+        ], HomeOwner::toArray($owners));
+
+        $owners = "Mr Sampson and Mrs Jane Hope";
+        $this->assertSame([
+            [
+                'title' => 'Mr',
+                'first_name' => null,
+                'initial' => null,
+                'last_name' => 'Sampson',
+            ], [
+                'title' => 'Mrs',
+                'first_name' => 'Jane',
+                'initial' => null,
+                'last_name' => 'Hope',
+            ]
+        ], HomeOwner::toArray($owners));
+
+        $owners = "Mr Fred Job & Mrs Fran Job";
+        $this->assertSame([
+            [
+                'title' => 'Mr',
+                'first_name' => 'Fred',
+                'initial' => null,
+                'last_name' => 'Job',
+            ], [
+                'title' => 'Mrs',
+                'first_name' => 'Fran',
+                'initial' => null,
+                'last_name' => 'Job',
+            ]
+        ], HomeOwner::toArray($owners));
+
+        $owners = "Mr & Mrs Hughes";
+        $this->assertSame([
+            [
+                'title' => 'Mr',
+                'first_name' => null,
+                'initial' => null,
+                'last_name' => 'Hughes',
+            ], [
+                'title' => 'Mrs',
+                'first_name' => null,
+                'initial' => null,
+                'last_name' => 'Hughes',
+            ]
+        ], HomeOwner::toArray($owners));
+    }
 }

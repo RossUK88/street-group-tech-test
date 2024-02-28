@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string|null getInitial(string $homeOwner)
  * @method static string getSurname(string $homeOwner)
  * @method static Collection peopleFromString(string $owners)
+ * @method static array toArray(string $owners)
  *
  * @see \App\Helpers\HomeOwner
  */

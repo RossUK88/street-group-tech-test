@@ -109,4 +109,9 @@ class HomeOwner
         // Split a string by either " & " or " and "
         return Str::of($owners)->split("( \& | and )", 2);
     }
+
+    public function toArray(string $owners): array
+    {
+        return [];
+    }
 }
