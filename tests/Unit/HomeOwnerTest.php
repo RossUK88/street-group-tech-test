@@ -67,4 +67,22 @@ class HomeOwnerTest extends TestCase
         $homeOwner = "Mr L. Jackson";
         $this->assertSame("L", HomeOwner::getInitial($homeOwner));
     }
+
+    public function test_it_can_parse_people_from_a_string(): void
+    {
+        $owners = "Mr John Smith";
+        $this->assertCount(1, HomeOwner::peopleFromString($owners));
+
+        $owners = "Mrs Jane Doe";
+        $this->assertCount(1, HomeOwner::peopleFromString($owners));
+
+        $owners = "Mr Sampson and Mrs Jane Hope";
+        $this->assertCount(2, HomeOwner::peopleFromString($owners));
+
+        $owners = "Mr Fred Job & Mrs Fran Job";
+        $this->assertCount(2, HomeOwner::peopleFromString($owners));
+
+        $owners = "Mr & Mrs Hughes";
+        $this->assertCount(2, HomeOwner::peopleFromString($owners));
+    }
 }

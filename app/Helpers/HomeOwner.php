@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Throwable;
@@ -83,5 +84,16 @@ class HomeOwner
 
         // If there is only 1 letter in the string then this is an initial
         return Str::length($nameOrInitial) === 1 ? $nameOrInitial : null;
+    }
+
+    /**
+     * @param  string  $owners
+     * @return Collection
+     */
+    public function peopleFromString(string $owners): Collection
+    {
+        $people = collect();
+
+        return $people;
     }
 }
