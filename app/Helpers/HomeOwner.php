@@ -59,9 +59,29 @@ class HomeOwner
     /**
      * @param  string  $homeOwner
      * @return string|null
+     *
+     * @throws Throwable
      */
     public function getInitial(string $homeOwner): ?string
     {
-        return null;
+        $homeOwnerParts = explode(" ", $homeOwner);
+        throw_if(count($homeOwnerParts) <= 1, InvalidArgumentException::class);
+
+        // Home Owner has all parts of a name Title, First Name, Initial, Lastname
+        if(count($homeOwnerParts) === 4) {
+            return $homeOwnerParts[2];
+        }
+
+        // Home Owners are required to have a Title and a Lastname therefore this means the Firstname and Initial are null
+        if(count($homeOwnerParts) <= 2) {
+            return null;
+        }
+
+        // This leaves us with 3 total parts, the 2nd part can now either be an Initial or a Firstname
+        // Handle cases where Home Owners are sent through with a fullstpo after their intial
+        $nameOrInitial = Str::replace(".", "", $homeOwnerParts[1]);
+
+        // If there is only 1 letter in the string then this is an initial
+        return Str::length($nameOrInitial) === 1 ? $nameOrInitial : null;
     }
 }
