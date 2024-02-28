@@ -37,7 +37,12 @@ class HomeOwner
     public function getFirstName(string $homeOwner): ?string
     {
         $homeOwnerParts = explode(" ", $homeOwner);
-        throw_if(count($homeOwnerParts) <= 1, InvalidArgumentException::class);
+        throw_if(count($homeOwnerParts) === 0, InvalidArgumentException::class);
+
+        // Owner only has a title
+        if(count($homeOwnerParts) === 1) {
+            return null;
+        }
 
         // Home Owner has all parts of a name Title, First Name, Initial, Lastname
         if(count($homeOwnerParts) === 4) {
@@ -66,7 +71,11 @@ class HomeOwner
     public function getInitial(string $homeOwner): ?string
     {
         $homeOwnerParts = explode(" ", $homeOwner);
-        throw_if(count($homeOwnerParts) <= 1, InvalidArgumentException::class);
+        throw_if(count($homeOwnerParts) === 0, InvalidArgumentException::class);
+        // Owner only has a title
+        if(count($homeOwnerParts) === 1) {
+            return null;
+        }
 
         // Home Owner has all parts of a name Title, First Name, Initial, Lastname
         if(count($homeOwnerParts) === 4) {
@@ -92,10 +101,15 @@ class HomeOwner
      *
      * @throws Throwable
      */
-    public function getSurname(string $homeOwner): string
+    public function getSurname(string $homeOwner, ?string $partner = null): string
     {
         $homeOwnerParts = explode(" ", $homeOwner);
-        throw_if(count($homeOwnerParts) <= 1, InvalidArgumentException::class);
+        throw_if(count($homeOwnerParts) === 0 || count($homeOwnerParts) === 1 && is_null($partner), InvalidArgumentException::class);
+
+        // We need to use a fall back of their Partner to get their Surname
+        if(count($homeOwnerParts) === 1) {
+            return self::getSurname($partner);
+        }
 
         return end($homeOwnerParts);
     }
@@ -110,8 +124,23 @@ class HomeOwner
         return Str::of($owners)->split("( \& | and )", 2);
     }
 
+    /**
+     * @param  string  $owners
+     * @return array
+     */
     public function toArray(string $owners): array
     {
-        return [];
+        $owners = self::peopleFromString($owners);
+
+        return $owners
+            ->map(function(string $person) use ($owners) {
+                return [
+                    'title' => self::getTitle($person),
+                    'first_name' => self::getFirstName($person),
+                    'initial' => self::getInitial($person),
+                    'last_name' => self::getSurname($person, $owners->last()),
+                ];
+            })
+            ->toArray();
     }
 }

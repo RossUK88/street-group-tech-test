@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getTitle(string $homeOwner)
  * @method static string|null getFirstName(string $homeOwner)
  * @method static string|null getInitial(string $homeOwner)
- * @method static string getSurname(string $homeOwner)
+ * @method static string getSurname(string $homeOwner, ?string $partner = null)
  * @method static Collection peopleFromString(string $owners)
  * @method static array toArray(string $owners)
  *
