@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -24,6 +25,13 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::post('/upload', function (Request $request) {
+    $request->validate([
+        'csv' => ['required', 'file', 'mimes:csv']
+    ]);
+
+})->middleware(['auth', 'verified'])->name('upload');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
