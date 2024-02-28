@@ -92,8 +92,7 @@ class HomeOwner
      */
     public function peopleFromString(string $owners): Collection
     {
-        $people = collect();
-
-        return $people;
+        // Split a string by either " & " or " and "
+        return Str::of($owners)->split("( \& | and )", 2);
     }
 }
