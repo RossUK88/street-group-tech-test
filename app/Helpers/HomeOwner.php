@@ -24,4 +24,13 @@ class HomeOwner
         };
     }
 
+    /**
+     * @param  string  $homeOwner
+     * @return string|null
+     */
+    public function getFirstName(string $homeOwner): ?string
+    {
+        return null;
+    }
+
 }
