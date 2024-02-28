@@ -19,16 +19,8 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
 
-Route::post('/dashboard', function (Request $request) {
+Route::post('/', function (Request $request) {
     $request->validate([
         'csv' => ['required', 'file', 'mimes:csv']
     ]);
@@ -53,7 +45,7 @@ Route::post('/dashboard', function (Request $request) {
     ]);
 })->middleware(['auth', 'verified'])->name('upload');
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return Inertia::render('Dashboard', ['people' => []]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

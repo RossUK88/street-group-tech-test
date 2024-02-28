@@ -7,9 +7,10 @@ const form = useForm({
 })
 
 const upload = () => {
-    form.post('/dashboard', {
+    form.post('/', {
         onSuccess: () => {
             form.clearErrors()
+            form.reset('csv')
         }
     })
 }
