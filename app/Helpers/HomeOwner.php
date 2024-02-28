@@ -22,7 +22,7 @@ class HomeOwner
 
         // Initials are a required value, if it doesn't match expected values we need to handle an exception
         return match(Str::lower($homeOwnerParts[0])) {
-            'mr', 'mister' => 'Mr',
+            'mr', 'mister' => 'Mr', // Keep to a consistent naming scheme
             'miss', 'mrs', 'ms',
             'dr', 'prof' => Str::title($homeOwnerParts[0]),
         };
