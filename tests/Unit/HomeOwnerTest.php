@@ -45,5 +45,8 @@ class HomeOwnerTest extends TestCase
 
         $homeOwner = "Ms Charles";
         $this->assertSame(null, HomeOwner::getFirstName($homeOwner));
+
+        $homeOwner = "Mr L. Jackson";
+        $this->assertSame(null, HomeOwner::getFirstName($homeOwner));
     }
 }
