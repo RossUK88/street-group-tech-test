@@ -13,23 +13,23 @@ class HomeOwnerTest extends TestCase
     public function test_it_can_parse_a_title(): void
     {
         $homeOwner = "Mr John Smith";
-        $this->assertSame("Mr", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Mr", HomeOwner::getTitle($homeOwner));
 
         $homeOwner = "Mrs Jane Doe";
-        $this->assertSame("Mrs", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Mrs", HomeOwner::getTitle($homeOwner));
 
         $homeOwner = "Mr Beck";
-        $this->assertSame("Mr", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Mr", HomeOwner::getTitle($homeOwner));
 
         $homeOwner = "Dr Temple";
-        $this->assertSame("Dr", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Dr", HomeOwner::getTitle($homeOwner));
 
         $homeOwner = "Mister Dave Johnson";
-        $this->assertSame("Mr", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Mr", HomeOwner::getTitle($homeOwner));
 
         $homeOwner = "John Smith";
         $this->expectException(\UnhandledMatchError::class);
-        $this->assertSame("Mr", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Mr", HomeOwner::getTitle($homeOwner));
     }
 
     public function test_it_can_parse_a_first_name(): void

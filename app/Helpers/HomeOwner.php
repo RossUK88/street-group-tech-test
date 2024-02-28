@@ -12,7 +12,7 @@ class HomeOwner
      *
      * @throws \UnhandledMatchError
      */
-    public function getInitial(string $homeOwner): string
+    public function getTitle(string $homeOwner): string
     {
         $homeOwnerParts = explode(" ", $homeOwner);
 
@@ -30,6 +30,13 @@ class HomeOwner
      */
     public function getFirstName(string $homeOwner): ?string
     {
+        $homeOwnerParts = explode(" ", $homeOwner);
+
+        // Home Owner has all parts of a name Title, First Name, Initial, Lastname
+        if(count($homeOwnerParts) === 4) {
+            return $homeOwnerParts[1];
+        }
+
         return null;
     }
 
