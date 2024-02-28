@@ -28,7 +28,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::post('/upload', function (Request $request) {
+Route::post('/dashboard', function (Request $request) {
     $request->validate([
         'csv' => ['required', 'file', 'mimes:csv']
     ]);

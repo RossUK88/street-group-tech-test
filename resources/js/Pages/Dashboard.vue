@@ -7,7 +7,7 @@ const form = useForm({
 })
 
 const upload = () => {
-    form.post('/upload', {
+    form.post('/dashboard', {
         onSuccess: () => {
             form.clearErrors()
         }
