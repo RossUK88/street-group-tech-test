@@ -56,4 +56,12 @@ class HomeOwner
         return Str::length($nameOrInitial) === 1 ? null : $homeOwnerParts[1];
     }
 
+    /**
+     * @param  string  $homeOwner
+     * @return string|null
+     */
+    public function getInitial(string $homeOwner): ?string
+    {
+        return null;
+    }
 }

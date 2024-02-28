@@ -49,4 +49,22 @@ class HomeOwnerTest extends TestCase
         $homeOwner = "Mr L. Jackson";
         $this->assertSame(null, HomeOwner::getFirstName($homeOwner));
     }
+
+    public function test_it_can_parse_an_initial(): void
+    {
+        $homeOwner = "Mr John Smith";
+        $this->assertSame(null, HomeOwner::getInitial($homeOwner));
+
+        $homeOwner = "Mrs J Doe";
+        $this->assertSame("J", HomeOwner::getInitial($homeOwner));
+
+        $homeOwner = "Mr M Jones";
+        $this->assertSame("M", HomeOwner::getInitial($homeOwner));
+
+        $homeOwner = "Ms Charles";
+        $this->assertSame(null, HomeOwner::getInitial($homeOwner));
+
+        $homeOwner = "Mr L. Jackson";
+        $this->assertSame("L", HomeOwner::getInitial($homeOwner));
+    }
 }
