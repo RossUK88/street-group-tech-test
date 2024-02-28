@@ -97,6 +97,7 @@ class HomeOwner
 
     /**
      * @param  string  $homeOwner
+     * @param  string|null  $partner
      * @return string
      *
      * @throws Throwable
