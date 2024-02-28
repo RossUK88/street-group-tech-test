@@ -71,19 +71,19 @@ class HomeOwnerTest extends TestCase
     public function test_it_can_parse_a_surname(): void
     {
         $homeOwner = "Mr John Smith";
-        $this->assertSame("Smith", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Smith", HomeOwner::getSurname($homeOwner));
 
         $homeOwner = "Mrs J Doe";
-        $this->assertSame("Doe", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Doe", HomeOwner::getSurname($homeOwner));
 
         $homeOwner = "Mr M Jones";
-        $this->assertSame("Jones", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Jones", HomeOwner::getSurname($homeOwner));
 
         $homeOwner = "Ms Charles";
-        $this->assertSame("Charles", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Charles", HomeOwner::getSurname($homeOwner));
 
         $homeOwner = "Mr L. Jackson";
-        $this->assertSame("Jackson", HomeOwner::getInitial($homeOwner));
+        $this->assertSame("Jackson", HomeOwner::getSurname($homeOwner));
     }
 
     public function test_it_can_parse_people_from_a_string(): void
