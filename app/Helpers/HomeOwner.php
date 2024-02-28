@@ -86,9 +86,18 @@ class HomeOwner
         return Str::length($nameOrInitial) === 1 ? $nameOrInitial : null;
     }
 
+    /**
+     * @param  string  $homeOwner
+     * @return string
+     *
+     * @throws Throwable
+     */
     public function getSurname(string $homeOwner): string
     {
-        return '';
+        $homeOwnerParts = explode(" ", $homeOwner);
+        throw_if(count($homeOwnerParts) <= 1, InvalidArgumentException::class);
+
+        return end($homeOwnerParts);
     }
 
     /**
